@@ -1,0 +1,1 @@
+COPY --chown=user:group
