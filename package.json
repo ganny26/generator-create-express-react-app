@@ -1,6 +1,6 @@
 {
   "name": "generator-create-express-react-app",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Boilerplate for express-create-react-app",
   "homepage": "https://github.com/ganny26/generator-create-express-react-app",
   "author": {

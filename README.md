@@ -1,5 +1,7 @@
 
 
+[![NPM](https://nodei.co/npm/generator-create-express-react-app.png)](https://nodei.co/npm/generator-create-express-react-app/)
+
 ## Installation
 
 First, install [Yeoman](http://yeoman.io) and generator-create-express-react-app using [npm](https://www.npmjs.com/) (we assume you have pre-installed [node.js](https://nodejs.org/)).
