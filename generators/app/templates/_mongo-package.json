@@ -12,7 +12,7 @@
     "build:server": "copyfiles -a -u 1 src/server/**/**/* build",
     "lint": "eslint --ignore-path .gitignore --ignore-pattern node_modules -- .",
     "prettier": "prettier --ignore-path .gitignore --write './**/*.js'",
-    "test": "exit 1",
+    "test": "jest",
     "release:patch": "npm run lint && npx standard-version -r patch && git push --follow-tags origin master",
     "release:minor": "npm run lint && npx standard-version -r minor && git push --follow-tags origin master",
     "release:major": "npm run lint && npx standard-version -r major && git push --follow-tags origin master"
@@ -91,6 +91,7 @@
     "mongoose":"5.4.12"
   },
   "dependencies": {
+    "jest":"24.1.0",
     "@babel/register": "^7.0.0",
     "@material-ui/core": "^3.9.1",
     "@material-ui/icons": "^3.0.2",
