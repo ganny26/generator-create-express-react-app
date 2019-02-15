@@ -3,9 +3,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const approutes = require('./routes/approutes');
 const logger = require('./logger');
-const db = require('./models/index');
-const path = require('path');
-const cors = require('cors')
+const cors = require('cors');
+const config = require('config');
 var mongoose = require('mongoose');
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
@@ -46,25 +45,15 @@ app.disable('x-powered-by');
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json());
-/**
- * For SQL Connection
- */
-db.sequelize.authenticate().then(() => {
-  console.log('MYSQL Connection has been established successfully.');
-}).catch(err => {
-  console.error('Unable to connect to the database:', err);
-});
-if(process.env.NODE_ENV==='development'){
-  db.sequelize.sync()
-  .then(() => {
-    console.log(`Database & tables created!`)
-  })
-}
 
+/**
+ * For MongoDB Connection
+ */
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://root:root123@ds135255.mlab.com:35255/reactdb')
-  .then(() =>  console.log('connection succesful'))
-  .catch((err) => console.error(err));
+mongoose
+  .connect(config.get('mongo_db_url'))
+  .then(() => console.log('MongoDB Connection has been established successfully.'))
+  .catch((err) => console.error('Unable to connect to the database:', err));
 
 
 // application routes

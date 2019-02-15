@@ -111,47 +111,25 @@ module.exports = class extends Generator {
       this.props
     );
 
-    this.fs.copyTpl(
-      this.templatePath('package.json'),
-      this.destinationPath('package.json'), {
-        name: this.props.app_name,
-        description: this.props.app_description
-      },
-      this.props
-    );
-
-
-    // this.copy('src','src')
-    // this.copy('config','config')
-
-
-
-    // this.fs.copyTpl(
-    //   this.templatePath('index.html'),
-    //   this.destinationPath('index.html'),
-    //   this.props
-    // );
-
-
-    // if (this.props.database === 'SQL') {
-    //   this.fs.copyTpl(
-    //     this.templatePath('_sql-package.json'),
-    //     this.destinationPath('package.json'), {
-    //       name: this.props.app_name,
-    //       description: this.props.app_description
-    //     },
-    //     this.props
-    //   );
-    // } else {
-    //   this.fs.copyTpl(
-    //     this.templatePath('_mongo-package.json'),
-    //     this.destinationPath('package.json'), {
-    //       name: this.props.app_name,
-    //       description: this.props.app_description
-    //     },
-    //     this.props
-    //   );
-    // }
+    if (this.props.database === 'SQL') {
+      this.fs.copyTpl(
+        this.templatePath('_sql-package.json'),
+        this.destinationPath('package.json'), {
+          name: this.props.app_name,
+          description: this.props.app_description
+        },
+        this.props
+      );
+    } else {
+      this.fs.copyTpl(
+        this.templatePath('_mongo-package.json'),
+        this.destinationPath('package.json'), {
+          name: this.props.app_name,
+          description: this.props.app_description
+        },
+        this.props
+      );
+    }
 
 
 

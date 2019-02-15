@@ -4,9 +4,7 @@ const bodyParser = require('body-parser');
 const approutes = require('./routes/approutes');
 const logger = require('./logger');
 const db = require('./models/index');
-const path = require('path');
 const cors = require('cors')
-var mongoose = require('mongoose');
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 process.env.HTTP_PORT = process.env.HTTP_PORT || 3000;
@@ -60,11 +58,6 @@ if(process.env.NODE_ENV==='development'){
     console.log(`Database & tables created!`)
   })
 }
-
-mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://root:root123@ds135255.mlab.com:35255/reactdb')
-  .then(() =>  console.log('connection succesful'))
-  .catch((err) => console.error(err));
 
 
 // application routes
