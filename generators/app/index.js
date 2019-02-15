@@ -81,6 +81,12 @@ module.exports = class extends Generator {
       this.props
     );
 
+    // this.fs.copyTpl(
+    //   this.templatePath('src'),
+    //   this.destinationPath('src'),
+    //   this.props
+    // );
+
     this.fs.copyTpl(
       this.templatePath('src'),
       this.destinationPath('src'),
@@ -112,6 +118,10 @@ module.exports = class extends Generator {
     );
 
     if (this.props.database === 'SQL') {
+
+      /**
+       * copy package
+       */
       this.fs.copyTpl(
         this.templatePath('_sql-package.json'),
         this.destinationPath('package.json'), {
@@ -120,7 +130,31 @@ module.exports = class extends Generator {
         },
         this.props
       );
+
+      /**
+       * copy models
+       */
+      this.fs.copyTpl(
+        this.templatePath('_sql-models'),
+        this.destinationPath('src/server/models'),
+        this.props
+      );
+
+      /**
+       * copy server index
+       */
+      this.fs.copyTpl(
+        this.templatePath('_sql.index.js'),
+        this.destinationPath('src/server/index.js'),
+        this.props
+      );
+
+
+
     } else {
+      /**
+       * copy package
+       */
       this.fs.copyTpl(
         this.templatePath('_mongo-package.json'),
         this.destinationPath('package.json'), {
@@ -129,6 +163,27 @@ module.exports = class extends Generator {
         },
         this.props
       );
+
+       /**
+       * copy models
+       */
+      this.fs.copyTpl(
+        this.templatePath('_mongodb-models'),
+        this.destinationPath('src/server/models'),
+        this.props
+      );
+
+
+       /**
+       * copy server index
+       */
+      this.fs.copyTpl(
+        this.templatePath('_mongo.index.js'),
+        this.destinationPath('src/server/index.js'),
+        this.props
+      );
+
+
     }
 
 
@@ -160,7 +215,6 @@ module.exports = class extends Generator {
       bower: hasBower
 
     });
-
   }
 
   end() {

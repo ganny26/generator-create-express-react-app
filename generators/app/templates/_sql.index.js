@@ -1,8 +1,8 @@
 const http = require('http');
 const express = require('express');
 const bodyParser = require('body-parser');
-const approutes = require('./routes/approutes');
-const logger = require('./logger');
+const approutes = require('./src/server/routes/approutes');
+const logger = require('./src/server/logger');
 const db = require('./models/index');
 const cors = require('cors')
 
@@ -23,7 +23,7 @@ process.on('unhandledRejection', onUnhandledError);
 process.on('uncaughtException', onUnhandledError);
 
 const setupAppRoutes =
-  process.env.NODE_ENV === 'development' ? require('./middlewares/development') : require('./middlewares/production');
+  process.env.NODE_ENV === 'development' ? require('./src/server/middlewares/development') : require('./src/server/middlewares/production');
 
 const app = express();
 
