@@ -1,0 +1,17 @@
+{
+  "name": "<%= name %>",
+  "version": "1.0.0",
+  "description": "<%= description %>",
+  "main": "server.js",
+  "license": "MIT",
+  "engines": {
+    "node": ">=4.8.0"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies":{
+    "mongoose":"5.4.11",
+    "express":"4.16.4"
+  }
+}

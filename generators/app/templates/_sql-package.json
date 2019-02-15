@@ -1,0 +1,17 @@
+{
+  "name": "<%= name %>",
+  "version": "1.0.0",
+  "description": "<%= description %>",
+  "main": "server.js",
+  "license": "MIT",
+  "engines": {
+    "node": ">=4.8.0"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies":{
+    "sequelize":"4.42.0",
+    "express":"4.16.4"
+  }
+}

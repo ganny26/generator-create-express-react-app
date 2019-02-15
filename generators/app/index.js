@@ -3,10 +3,14 @@ const Generator = require('yeoman-generator');
 const commandExists = require('command-exists').sync;
 const chalk = require('chalk');
 const yosay = require('yosay');
+const path = require('path');
+const makeDir = require('make-dir');
+
+
 
 module.exports = class extends Generator {
 
-  constructor(args, opts){
+  constructor(args, opts) {
     super(args, opts);
   }
 
@@ -15,11 +19,6 @@ module.exports = class extends Generator {
   }
 
   prompting() {
-    // Have Yeoman greet the user.
-    // this.log(
-    //   yosay(`Welcome to ${chalk.red('generator-create-express-react-app')} generator!`)
-    // );
-
     const done = this.async();
 
     const prompts = [
@@ -51,33 +50,121 @@ module.exports = class extends Generator {
 
     ];
 
-    this.prompt(prompts).then(props => {
-      let {app_name,database,create_app,app_description} = props
+    this.prompt(prompts).then(answers => {
 
-      this.on('end',()=>{
-        console.log('prompt end');
-      })
+      this.props = {
+        app_name: answers.app_name,
+        app_description: answers.app_description,
+        database: answers.database
+      };
 
       done();
       //this.props = props;
     });
   }
 
-  writing() {
+  configuring() {
+    if (path.basename(this.destinationRoot()) !== this.props.app_name) {
+      return makeDir(this.props.app_name).then(path => {
+        this.destinationRoot(path);
+        this.log(`\nGenerating a new project in ${chalk.green(path)}\n`);
+      });
+    }
+  }
 
-   // console.log('writing',this.props)
+
+
+  writing() {
     this.fs.copyTpl(
-      this.templatePath('index.html'),
-      this.destinationPath('index.html')
+      this.templatePath('config'),
+      this.destinationPath('config'),
+      this.props
     );
+
+    this.fs.copyTpl(
+      this.templatePath('src'),
+      this.destinationPath('src'),
+      this.props
+    );
+
+    this.fs.copyTpl(
+      this.templatePath('.babelrc'),
+      this.destinationPath('.babelrc'),
+      this.props
+    );
+
+    this.fs.copyTpl(
+      this.templatePath('.eslintrc'),
+      this.destinationPath('.eslintrc'),
+      this.props
+    );
+
+    this.fs.copyTpl(
+      this.templatePath('.prettierrc'),
+      this.destinationPath('.prettierrc'),
+      this.props
+    );
+
+    this.fs.copyTpl(
+      this.templatePath('build-dev'),
+      this.destinationPath('build-dev'),
+      this.props
+    );
+
+    this.fs.copyTpl(
+      this.templatePath('package.json'),
+      this.destinationPath('package.json'), {
+        name: this.props.app_name,
+        description: this.props.app_description
+      },
+      this.props
+    );
+
+
+    // this.copy('src','src')
+    // this.copy('config','config')
+
+
+
+    // this.fs.copyTpl(
+    //   this.templatePath('index.html'),
+    //   this.destinationPath('index.html'),
+    //   this.props
+    // );
+
+
+    // if (this.props.database === 'SQL') {
+    //   this.fs.copyTpl(
+    //     this.templatePath('_sql-package.json'),
+    //     this.destinationPath('package.json'), {
+    //       name: this.props.app_name,
+    //       description: this.props.app_description
+    //     },
+    //     this.props
+    //   );
+    // } else {
+    //   this.fs.copyTpl(
+    //     this.templatePath('_mongo-package.json'),
+    //     this.destinationPath('package.json'), {
+    //       name: this.props.app_name,
+    //       description: this.props.app_description
+    //     },
+    //     this.props
+    //   );
+    // }
+
+
+
+
+
 
     this._writingGit()
 
   }
 
-  _writingGit(){
+  _writingGit() {
     this.fs.copy(
-      this.templatePath('gitignore'),
+      this.templatePath('.gitignore'),
       this.destinationPath('.gitignore'));
 
     this.fs.copy(
@@ -98,7 +185,8 @@ module.exports = class extends Generator {
 
   }
 
-  end(){
+  end() {
+    this.spawnCommandSync('git', ['init', '--quiet']);
     const message = `Created new app`;
     this.log(message);
   }
