@@ -94,19 +94,19 @@ module.exports = class extends Generator {
     );
 
     this.fs.copyTpl(
-      this.templatePath('.babelrc'),
+      this.templatePath('_babelrc'),
       this.destinationPath('.babelrc'),
       this.props
     );
 
     this.fs.copyTpl(
-      this.templatePath('.eslintrc'),
+      this.templatePath('_eslintrc'),
       this.destinationPath('.eslintrc'),
       this.props
     );
 
     this.fs.copyTpl(
-      this.templatePath('.prettierrc'),
+      this.templatePath('_prettierrc'),
       this.destinationPath('.prettierrc'),
       this.props
     );
@@ -116,6 +116,11 @@ module.exports = class extends Generator {
       this.destinationPath('build-dev'),
       this.props
     );
+
+    this.fs.copy(
+      this.templatePath('_travis.yml'),
+      this.destinationPath('travis.yml'));
+
 
     if (this.props.database === 'SQL') {
 
@@ -197,7 +202,7 @@ module.exports = class extends Generator {
 
   _writingGit() {
     this.fs.copy(
-      this.templatePath('.gitignore'),
+      this.templatePath('_gitignore'),
       this.destinationPath('.gitignore'));
 
     this.fs.copy(
