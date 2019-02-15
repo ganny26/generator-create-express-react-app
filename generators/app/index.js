@@ -213,7 +213,6 @@ module.exports = class extends Generator {
       npm: !hasYarn,
       yarn: hasYarn,
       bower: hasBower
-
     });
   }
 
