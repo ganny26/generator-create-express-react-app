@@ -2,9 +2,12 @@
 
 [![NPM](https://nodei.co/npm/generator-create-express-react-app.png)](https://nodei.co/npm/generator-create-express-react-app/)
 
+## Motivation
+
+To create a simple react express webapp application powered by Webpack 4
+
 ## Installation
 
-First, install [Yeoman](http://yeoman.io) and generator-create-express-react-app using [npm](https://www.npmjs.com/) (we assume you have pre-installed [node.js](https://nodejs.org/)).
 
 ```bash
 npm install -g yo
@@ -17,9 +20,17 @@ Then generate your new project:
 yo create-express-react-app
 ```
 
-> Folder structure options and naming conventions for software projects
+## How to run app
 
-### A typical top-level directory layout
+```bash
+
+cd <your app name>
+yarn dev
+
+```
+
+
+### Directory layout
 
     .
     ├── build
@@ -33,6 +44,28 @@ yo create-express-react-app
     ├── .babelrc
     ├── .prettierrc
     └── Dockerfile
+
+
+## Completed
+
+- [x] database & orm
+- [x] package, build and hot-reload
+- [x] sass, material-ui
+- [x] environment support for config variable store
+- [x] dockerfile & docker-compose
+- [x] testing automation
+- [x] publish to yeoman
+
+## Things to do
+
+- [ ] log message after app created
+- [ ] static asset pipeline
+- [ ] health check api and webpage
+- [ ] debugging and benchmarking tools
+- [ ] authentication and authorisation using JWT
+- [ ] caching and background job
+- [ ] write a blog about this
+
 
 ## License
 
